@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/inputTransactionFragment">
+
+    <fragment
+        android:id="@+id/inputTransactionFragment"
+        android:name="com.example.small_project.ui.main.InputTransactionFragment"
+        android:label="InputTransactionFragment"
+        tools:layout="@layout/fragment_input_transaction">
+        <action
+            android:id="@+id/action_inputTransactionFragment_to_transactionConfirmFragment"
+            app:destination="@id/transactionConfirmFragment" />
+        <action
+            android:id="@+id/action_inputTransactionFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.example.small_project.ui.history.HistoryFragment"
+        android:label="HistoryFragment"
+        tools:layout="@layout/fragment_history"/>
+    <fragment
+        android:id="@+id/transactionChequeFragment"
+        android:name="com.example.small_project.ui.cheque.TransactionChequeFragment"
+        android:label="TransactionChequeFragment"
+        tools:layout="@layout/fragment_transaction_cheque">
+        <argument
+            android:name="uuid"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="status"
+            app:argType="com.example.small_project.data.model.status_transaction.StatusTransactionEnum" />
+    </fragment>
+    <fragment
+        android:id="@+id/transactionConfirmFragment"
+        android:name="com.example.small_project.ui.confirm.TransactionConfirmFragment"
+        android:label="TransactionConfirmFragment"
+        tools:layout="@layout/fragment_transaction_confirm">
+        <action
+            android:id="@+id/action_transactionConfirmFragment_to_transactionChequeFragment"
+            app:destination="@id/transactionChequeFragment" />
+        <argument
+            android:name="amount"
+            app:argType="long" />
+    </fragment>
+</navigation>
