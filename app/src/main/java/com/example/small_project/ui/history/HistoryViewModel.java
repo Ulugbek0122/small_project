@@ -1,7 +1,5 @@
 package com.example.small_project.ui.history;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -9,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.small_project.data.entity.Transaction;
 import com.example.small_project.data.repository.TransactionRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -41,7 +40,6 @@ public class HistoryViewModel extends ViewModel {
         _progress.setValue(true);
         compositeDisposable.add(transactionRepository.getAllTransaction().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(transactions -> {
-                    Log.d("PPP","transactions = "+transactions);
                     _progress.setValue(false);
                     _setTransactions.setValue(transactions);
                 }, throwable -> {
@@ -49,6 +47,17 @@ public class HistoryViewModel extends ViewModel {
                 }));
     }
 
+
+    public void deleteTransaction() {
+        _progress.setValue(true);
+        compositeDisposable.add(transactionRepository.delete().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(() -> {
+                    _progress.setValue(false);
+                    _setTransactions.setValue(new ArrayList<>());
+                }, throwable -> {
+                    _progress.setValue(false);
+                }));
+    }
 
 
     @Override

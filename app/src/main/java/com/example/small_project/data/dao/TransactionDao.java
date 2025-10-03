@@ -23,4 +23,7 @@ public interface TransactionDao {
 
     @Query("SELECT * FROM `transaction` WHERE transactionId = :transactionId LIMIT 1")
     Single<Transaction> getTransactionByTransactionId(UUID transactionId);
+
+    @Query("DELETE FROM `transaction`")
+    void delete();
 }

@@ -16,6 +16,8 @@ import com.example.small_project.databinding.FragmentHistoryBinding;
 import com.example.small_project.ui.history.adapter.TransactionHistoryAdapter;
 import com.example.small_project.ui.main.InputTransactionViewModel;
 
+import java.util.List;
+
 import dagger.hilt.android.AndroidEntryPoint;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
@@ -56,6 +58,13 @@ public class HistoryFragment extends Fragment {
                 Navigation.findNavController(view).popBackStack();
             }
         });
+
+        binding.btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.deleteTransaction();
+            }
+        });
     }
 
     private void initObserve() {
@@ -70,9 +79,8 @@ public class HistoryFragment extends Fragment {
         viewModel.setTransactions.observe(getViewLifecycleOwner(), transactions -> {
             if (transactions.isEmpty()){
                 binding.tvEmpty.setVisibility(View.VISIBLE);
-            }else {
-                adapter.submitItems(transactions);
             }
+            adapter.submitItems(transactions);
         });
     }
 

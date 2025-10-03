@@ -17,4 +17,6 @@ public interface TransactionRepository {
     Single<Transaction> getTransactionByTransactionId(UUID transactionId);
 
     Single<List<Transaction>> getAllTransaction();
+
+    Completable delete();
 }

@@ -34,6 +34,11 @@ public class TransactionRepositoryImpl implements TransactionRepository {
     }
 
     @Override
+    public Completable delete() {
+        return Completable.fromAction(transactionDao::delete);
+    }
+
+    @Override
     public Single<Transaction> getTransactionByTransactionId(UUID transactionId) {
         return transactionDao.getTransactionByTransactionId(transactionId);
     }

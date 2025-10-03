@@ -12,6 +12,8 @@ import com.example.small_project.ui.utils.Utils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
@@ -51,6 +53,7 @@ public class InputTransactionFragment extends Fragment{
 
         viewModel = new ViewModelProvider(this).get(InputTransactionViewModel.class);
 
+        initObserve(view);
 
         binding.btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +64,7 @@ public class InputTransactionFragment extends Fragment{
             }
         });
 
-        binding.inputAmount.addTextChangedListener(Utils.formatAsSum(binding.inputAmount));
+        binding.inputAmount.addTextChangedListener(Utils.formatAsSum(binding.inputAmount, binding.btnNext));
 
         binding.btnHistory.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,10 +74,20 @@ public class InputTransactionFragment extends Fragment{
             }
         });
 
-        viewModel.startConfirm.observe(getViewLifecycleOwner(), amount ->{
-            NavDirections action = InputTransactionFragmentDirections.actionInputTransactionFragmentToTransactionConfirmFragment(amount);
-            Navigation.findNavController(view).navigate(action);
+    }
+
+    private void initObserve(View view) {
+        viewModel.startConfirm.observe(getViewLifecycleOwner(),navigateEvent -> {
+            if (navigateEvent != null){
+                Long amount = navigateEvent.getAmount();
+                startConfirmFragment(amount, view);
+            }
         });
+    }
+
+    private void startConfirmFragment(Long amount,View view) {
+        NavDirections action = InputTransactionFragmentDirections.actionInputTransactionFragmentToTransactionConfirmFragment(amount);
+        Navigation.findNavController(view).navigate(action);
     }
 
 

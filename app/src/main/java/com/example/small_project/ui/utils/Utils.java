@@ -3,6 +3,7 @@ package com.example.small_project.ui.utils;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -17,7 +18,7 @@ public class Utils {
         return df.format(amount) + " сум";
     }
 
-    public static TextWatcher formatAsSum(final EditText editText) {
+    public static TextWatcher formatAsSum(final EditText editText, final TextView button) {
         return new TextWatcher() {
             private String current = "";
 
@@ -31,24 +32,23 @@ public class Utils {
             public void afterTextChanged(Editable s) {
                 if (!s.toString().equals(current)) {
                     editText.removeTextChangedListener(this);
-
                     String cleanString = s.toString().replaceAll("[,\\sсум]", "");
                     if (!cleanString.isEmpty()) {
                         try {
                             long parsed = Long.parseLong(cleanString);
-
                             DecimalFormat formatter = new DecimalFormat("#,###");
                             current = formatter.format(parsed) + " сум";
-
                             editText.setText(current);
                             editText.setSelection(current.length() - 4);
+                            button.setEnabled(true);
                         } catch (NumberFormatException e) {
                             e.printStackTrace();
+                            button.setEnabled(false);
                         }
                     } else {
                         current = "";
+                        button.setEnabled(false);
                     }
-
                     editText.addTextChangedListener(this);
                 }
             }

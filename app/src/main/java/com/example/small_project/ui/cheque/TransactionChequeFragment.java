@@ -10,9 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavDirections;
 import androidx.navigation.NavOptions;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.small_project.R;
@@ -20,7 +18,6 @@ import com.example.small_project.data.model.status_transaction.StatusTransaction
 import com.example.small_project.databinding.FragmentTransactionChequeBinding;
 import com.example.small_project.ui.utils.Utils;
 
-import java.text.SimpleDateFormat;
 import java.util.UUID;
 
 import dagger.hilt.android.AndroidEntryPoint;

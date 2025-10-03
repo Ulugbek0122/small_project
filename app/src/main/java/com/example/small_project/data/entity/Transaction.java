@@ -5,7 +5,6 @@ import androidx.room.PrimaryKey;
 
 import com.example.small_project.data.model.status_transaction.StatusTransactionEnum;
 
-import java.sql.Date;
 import java.util.UUID;
 
 @Entity(tableName = "transaction")

@@ -1,13 +1,11 @@
 package com.example.small_project.ui.history.adapter;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.small_project.R;
 import com.example.small_project.data.entity.Transaction;
 import com.example.small_project.databinding.ItemTransactionBinding;
 import com.example.small_project.ui.utils.Utils;
@@ -35,7 +33,7 @@ public class TransactionHistoryAdapter extends RecyclerView.Adapter<TransactionH
 
     @Override
     public void onBindViewHolder(@NonNull TransactionViewHolder holder, int position) {
-        holder.bind(transactions.get(position), position);
+        holder.bind(transactions.get(position));
     }
 
     @Override
@@ -53,7 +51,7 @@ public class TransactionHistoryAdapter extends RecyclerView.Adapter<TransactionH
             this.binding = binding;
         }
 
-        public void bind(Transaction transaction, int position){
+        public void bind(Transaction transaction){
             binding.tvTransactionId.setText(transaction.getTransactionId().toString());
             binding.tvTransactionAmount.setText(Utils.formatAmountWithSpace(transaction.getAmount()));
             binding.tvTransactionTime.setText(transaction.getDate());
