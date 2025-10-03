@@ -21,8 +21,7 @@ public class AppModule {
     @Provides
     @Singleton
     public AppDatabase provideDatabase(@ApplicationContext Context context) {
-        return Room.databaseBuilder(context, AppDatabase.class, "local.db")
-                .fallbackToDestructiveMigration()
+        return Room.databaseBuilder(context, AppDatabase.class, "local_db.db")
                 .build();
     }
 
